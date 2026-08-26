@@ -166,6 +166,7 @@ td.un-col{width:55px;padding-right:4px}
     <div class="docs-row">
       <a class="doc-btn" href="https://drive.google.com/file/d/1r8r12FmvPX735HwnW8doTigpHUjnO4Nh/view?usp=drive_link" target="_blank"><i class="ti ti-file-description" aria-hidden="true"></i> Planos</a>
       <a class="doc-btn" href="https://drive.google.com/file/d/1pGi9qQV2Zt7eOctAFtUXzRoLfW2gSHyc/view?usp=drive_link" target="_blank"><i class="ti ti-book" aria-hidden="true"></i> Brochure</a>
+      <a class="doc-btn" href="https://drive.google.com/file/d/13rDWDJ43LfzkwQCxNvkN_4LETfhyKyWy/view?usp=drive_link" target="_blank"><i class="ti ti-file-description" aria-hidden="true"></i> Memoria descriptiva</a>
       <a class="doc-btn" href="https://maps.app.goo.gl/vtgnyhTT76xemDRj6" target="_blank">📍 Mapa</a>
     </div>
     <div class="table-wrap">
@@ -685,8 +686,10 @@ const isVRC=(r,pfx)=>{
   return false;
 };
 // Estado extendido: vendido, disponible, proximo, nodisponible
+const TA_VENDIDAS_EXCEPCION=['702','703','704','705'];
 function getEstado(r,vfn,pfx){
   if(pfx==='ta'){
+    if(r.un&&TA_VENDIDAS_EXCEPCION.includes(r.un.trim())) return 'vendido';
     if(r.un&&(r.un.startsWith('7')||r.un.startsWith('9'))) return 'proximo';
   }
   const tiUp=(r.ti||'').toUpperCase().trim();
@@ -1101,7 +1104,7 @@ window.addEventListener('DOMContentLoaded', function(){
   var elTribeca = document.getElementById('cuotas-tribeca');
   if(elHub) elHub.textContent = calcCuotas(6,2026,15,null,null);
   if(elRosso) elRosso.textContent = calcCuotas(6,2026,21,null,null);
-  if(elTribeca) elTribeca.textContent = calcCuotas(6,2026,32,9,2026);
+  if(elTribeca) elTribeca.textContent = calcCuotas(9,2026,31,9,2026);
 });
 </script>
 </body>
