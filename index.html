@@ -690,11 +690,16 @@ const TA_VENDIDAS_EXCEPCION=['702','703','704','705'];
 function getEstado(r,vfn,pfx){
   if(pfx==='ta'){
     if(r.un&&TA_VENDIDAS_EXCEPCION.includes(r.un.trim())) return 'vendido';
-    if(r.un&&(r.un.startsWith('7')||r.un.startsWith('9'))) return 'proximo';
+    if(r.un&&(r.un.startsWith('7')||r.un.startsWith('9'))){
+      // Próx. a la venta SIN precio = vendida; con precio sigue como próxima
+      return r.pr?'proximo':'vendido';
+    }
   }
   const tiUp=(r.ti||'').toUpperCase().trim();
   const vnLow=(r.vn||'').toLowerCase().trim();
   const vnUp=(r.vn||'').toUpperCase().trim();
+  // Cocheras (todos los edificios): "Cargador" SIN precio = vendida
+  if(['tc','rc','hc','gc'].includes(pfx)&&!r.pr&&(tiUp.includes('CARGADOR')||vnUp.includes('CARGADOR')||(r.ob||'').toUpperCase().includes('CARGADOR'))) return 'vendido';
   if(pfx==='gc'){
     const obUp=(r.ob||'').toUpperCase().trim();
     if(obUp.includes('ACCESIBLE')||tiUp.includes('ACCESIBLE')||vnUp.includes('ACCESIBLE')) return 'nodisponible';
@@ -831,7 +836,8 @@ function parseCocheras(text){
 // ---- RENDER APTOS ----
 function renderAptos(pfx,vfn){
   const data=filter(pfx,vfn);
-  const dis=data.filter(r=>getEstado(r,vfn,pfx)==='disponible');
+  // Tribeca: las "Próx. a la venta" (con precio) también cuentan como disponibles
+  const dis=data.filter(r=>{const e=getEstado(r,vfn,pfx);return e==='disponible'||(pfx==='ta'&&e==='proximo');});
   const ven=data.filter(r=>getEstado(r,vfn,pfx)==='vendido');
   document.getElementById(pfx+'-tot').textContent=data.length;
   document.getElementById(pfx+'-dis').textContent=dis.length;
