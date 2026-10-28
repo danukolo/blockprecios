@@ -132,6 +132,7 @@ td.un-col{width:55px;padding-right:4px}
   <div class="proj-tab" onclick="swProj('tribeca',this)">🏢 Tribeca</div>
   <div class="proj-tab" onclick="swProj('garden',this)">🏢 Garden</div>
   <div class="proj-tab" onclick="swProj('olimpicos',this)">🏢 Los Olímpicos</div>
+  <div class="proj-tab" onclick="swProj('ochodiez',this)">🏢 8/10</div>
 </div>
 
 <!-- ===== TRIBECA ===== -->
@@ -582,6 +583,79 @@ td.un-col{width:55px;padding-right:4px}
     <div class="last-update" id="oc-upd"></div>
   </div>
 </div>
+
+<!-- ===== 8/10 ===== -->
+<div id="proj-ochodiez" class="proj-panel">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="swSub('ochodiez','aptos',this)">🏠 Apartamentos</div>
+    <div class="sub-tab" onclick="swSub('ochodiez','cocheras',this)">🚗 Cocheras</div>
+  </div>
+
+  <!-- 8/10 aptos -->
+  <div id="ochodiez-aptos" class="sub-panel active">
+    <div class="badges-row">
+      <div class="entrega-badge">🏗️ <span>Entrega</span> Entregado</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Disponibles</div><div class="stat-value" id="ea-tot" style="color:#1a6a40">—</div></div>
+    </div>
+    <div class="controls-wrap">
+      <div class="controls-title">Filtros</div>
+      <div class="controls">
+        <div class="dd-wrap" id="ddw-ea-nv"><div class="dd-btn" onclick="ddToggle('ea-nv')">Piso <span class="dd-count" id="ddc-ea-nv"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-ea-nv"></div></div>
+        <div class="dd-wrap" id="ddw-ea-ti"><div class="dd-btn" onclick="ddToggle('ea-ti')">Tipo <span class="dd-count" id="ddc-ea-ti"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-ea-ti"></div></div>
+        <div class="dd-wrap" id="ddw-ea-ub"><div class="dd-btn" onclick="ddToggle('ea-ub')">Ubicación <span class="dd-count" id="ddc-ea-ub"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-ea-ub"></div></div>
+        <button class="reset" onclick="resetEA()"><i class="ti ti-x" aria-hidden="true"></i> Limpiar</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <div class="loading" id="ea-loading">Cargando datos...</div>
+      <div class="error-msg" id="ea-error">No se pudieron cargar los datos.</div>
+      <table id="ea-table" style="display:none">
+        <thead><tr>
+          <th onclick="srtE('ea','un')" id="eah-un" style="width:55px">Unidad </th>
+          <th onclick="srtE('ea','pr')" id="eah-pr" class="num" style="width:100px">Precio (USD) </th>
+          <th onclick="srtE('ea','ti')" id="eah-ti" style="width:70px">Tipo </th>
+          <th onclick="srtE('ea','ub')" id="eah-ub">Ubicación </th>
+          <th onclick="srtE('ea','ai')" id="eah-ai" class="num sep col-n">A. interna </th>
+          <th onclick="srtE('ea','bt')" id="eah-bt" class="num col-n">Balcón </th>
+          <th onclick="srtE('ea','cc')" id="eah-cc" class="num col-n">C. parte </th>
+          <th onclick="srtE('ea','ac')" id="eah-ac" class="num col-n"><strong>APPCU</strong></th>
+          <th onclick="srtE('ea','td')" id="eah-td" class="num col-n">Terraza </th>
+          <th onclick="srtE('ea','am')" id="eah-am" class="num col-n">Amenities </th>
+          <th onclick="srtE('ea','at')" id="eah-at" class="num col-n">Total m² </th>
+          <th class="sep" style="width:100px">Alquiler (UYU)</th>
+          <th style="width:100px">Fin contrato</th>
+        </tr></thead>
+        <tbody id="ea-tbody"></tbody>
+        <tfoot id="ea-tfoot"></tfoot>
+      </table>
+    </div>
+    <div class="last-update" id="ea-upd"></div>
+  </div>
+
+  <!-- 8/10 cocheras -->
+  <div id="ochodiez-cocheras" class="sub-panel">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Disponibles</div><div class="stat-value" id="ec-tot" style="color:#1a6a40">—</div></div>
+    </div>
+    <div class="table-wrap">
+      <div class="loading" id="ec-loading">Cargando datos...</div>
+      <div class="error-msg" id="ec-error">No se pudieron cargar los datos.</div>
+      <table id="ec-table" class="coch-table" style="display:none">
+        <thead><tr>
+          <th onclick="srtE('ec','un')" id="ech-un" style="width:65px">Cochera </th>
+          <th onclick="srtE('ec','pr')" id="ech-pr" style="width:100px;padding-left:8px">Precio (USD) </th>
+          <th class="sep" style="width:90px">Alquiler</th>
+          <th style="width:100px">Fin contrato</th>
+        </tr></thead>
+        <tbody id="ec-tbody"></tbody>
+        <tfoot id="ec-tfoot"></tfoot>
+      </table>
+    </div>
+    <div class="last-update" id="ec-upd"></div>
+  </div>
+</div>
 </div><!-- end .page -->
 
 <script>
@@ -595,12 +669,13 @@ const URLS = {
   ta: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQndKxWDSZBKejNvvXl0DkU00XtmdyVZCSNBCvN5j35yPk0MsUXU_O670_Tw6inkn-WuIfxgL6YJLxj/pub?gid=1557074459&single=true&output=csv',
   tc: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQndKxWDSZBKejNvvXl0DkU00XtmdyVZCSNBCvN5j35yPk0MsUXU_O670_Tw6inkn-WuIfxgL6YJLxj/pub?gid=2129038907&single=true&output=csv',
   ra: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPE8NLul0j85QhnOUzH2cTZBfqg3Uv2uMu_r9hJhDJ-YnIxeJqxBXquZ0ncaJmzMO3M6r1eMR8fCE1/pub?gid=1067607880&single=true&output=csv',
-  rc: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPE8NLul0j85QhnOUzH2cTZBfqg3Uv2uMu_r9hJhDJ-YnIxeJqxBXquZ0ncaJmzMO3M6r1eMR8fCE1/pub?gid=1964954728&single=true&output=csv'
+  rc: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPE8NLul0j85QhnOUzH2cTZBfqg3Uv2uMu_r9hJhDJ-YnIxeJqxBXquZ0ncaJmzMO3M6r1eMR8fCE1/pub?gid=1964954728&single=true&output=csv',
+  e810: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcdW4TibZp97W4_U2o-C_ObKH_0TinWlT-LD52AFr-_E-z5HD6gdgtz3zHnv7Lw8A09q6ha0Bjidid/pub?gid=0&single=true&output=csv'
 };
 const PROXY = 'https://corsproxy.io/?';
 
-const stores = {ta:[],tc:[],ra:[],rc:[],ha:[],hc:[],ga:[],gc:[],oa:[],oc:[]};
-const sortState = {ta:{col:'un',dir:1},tc:{col:'un',dir:1},ra:{col:'un',dir:1},rc:{col:'un',dir:1},ha:{col:'un',dir:1},hc:{col:'un',dir:1},ga:{col:'un',dir:1},gc:{col:'un',dir:1},oa:{col:'un',dir:1},oc:{col:'un',dir:1}};
+const stores = {ta:[],tc:[],ra:[],rc:[],ha:[],hc:[],ga:[],gc:[],oa:[],oc:[],ea:[],ec:[]};
+const sortState = {ta:{col:'un',dir:1},tc:{col:'un',dir:1},ra:{col:'un',dir:1},rc:{col:'un',dir:1},ha:{col:'un',dir:1},hc:{col:'un',dir:1},ga:{col:'un',dir:1},gc:{col:'un',dir:1},oa:{col:'un',dir:1},oc:{col:'un',dir:1},ea:{col:'un',dir:1},ec:{col:'un',dir:1}};
 
 // ---- NAV ----
 // ---- CUOTAS ----
@@ -1054,6 +1129,98 @@ async function loadOlimpicos(){
   }
 }
 
+// ---- 8/10 (entregado; una sola hoja con aptos + garages) ----
+// Columnas: 0 UNIDAD,1 TIPO,2 UBICACIÓN,3 PRECIO,4 AI,5 BT,6 CC,7 APPCU,8 TERRAZA,9 AMENITIES,10 TOTAL,11 ALQUILER,12 FIN CONTRATO
+const E810_VENDIDAS=['504','604','704'];
+function parse810(text){
+  let rows=text.trim().split('\n').slice(1).map(l=>parseFields(l.trim()))
+    .filter(c=>(c[0]||'').trim()!=='').map(c=>({
+      un:(c[0]||'').trim(), ti:(c[1]||'').trim(), ub:(c[2]||'').trim(), pr:parseNum(c[3]),
+      ai:parseNum(c[4]), bt:parseNum(c[5]), cc:parseNum(c[6]), ac:parseNum(c[7]),
+      td:parseNum(c[8]), am:parseNum(c[9]), at:parseNum(c[10]), alq:parseNum(c[11]),
+      finC:(c[12]||'').trim()
+    })).filter(r=>r.pr!==null&&r.pr>0);
+  // Vendidas (marcadas en amarillo en la planilla; el color no viaja en el CSV)
+  rows=rows.filter(r=>!E810_VENDIDAS.includes(r.un));
+  const isG=r=>/garage|cochera/i.test(r.ti)||/garage|cochera/i.test(r.un);
+  rows.forEach(r=>{
+    if(isG(r)) r.un=r.un.replace(/garage|cochera/ig,'').trim();
+    else { const d=r.un.replace(/\D/g,''); r.nv=d.length>2?String(parseInt(d.slice(0,-2))):'PB'; }
+  });
+  return {a:rows.filter(r=>!isG(r)), c:rows.filter(isG)};
+}
+function gvE(r,col){
+  if(col==='un')return parseInt(r.un)||0;
+  if(['ti','ub'].includes(col))return r[col]||'';
+  return r[col]||0;
+}
+function srtE(pfx,col){
+  const s=sortState[pfx];
+  if(s.col===col)s.dir*=-1;else{s.col=col;s.dir=1;}
+  const h=pfx==='ea'?'eah':'ech';
+  document.querySelectorAll('[id^="'+h+'-"]').forEach(t=>t.classList.remove('active'));
+  const el=document.getElementById(h+'-'+col);if(el)el.classList.add('active');
+  if(pfx==='ea')render810Aptos();else render810Cocheras();
+}
+function resetEA(){ddClear('ea');render810Aptos();}
+function render810Aptos(){
+  const nv=ddGetSel('ea-nv'),ti=ddGetSel('ea-ti'),ub=ddGetSel('ea-ub');
+  let data=[...stores.ea];
+  data.sort((a,b)=>{const s=sortState.ea;const av=gvE(a,s.col),bv=gvE(b,s.col);return typeof av==='number'?(av-bv)*s.dir:String(av).localeCompare(String(bv))*s.dir;});
+  if(nv.length) data=data.filter(r=>nv.includes(r.nv));
+  if(ti.length) data=data.filter(r=>ti.includes(r.ti));
+  if(ub.length) data=data.filter(r=>ub.includes(r.ub));
+  document.getElementById('ea-tot').textContent=data.length;
+  const tb=document.getElementById('ea-tbody');
+  if(!data.length){tb.innerHTML='<tr><td colspan="13" class="no-results">No hay unidades disponibles con esos filtros.</td></tr>';return;}
+  tb.innerHTML=data.map(r=>(
+    '<tr class="row-disp">'+
+    '<td class="un-col" style="font-weight:600">'+r.un+'</td>'+
+    '<td class="num price">'+r.pr.toLocaleString('es-AR')+'</td>'+
+    '<td><span class="tb">'+r.ti+'</span></td>'+
+    '<td>'+(r.ub||'—')+'</td>'+
+    '<td class="num sep col-n">'+fmt(r.ai)+'</td>'+
+    '<td class="num col-n">'+fmt(r.bt)+'</td>'+
+    '<td class="num col-n">'+fmt(r.cc)+'</td>'+
+    '<td class="num col-n"><strong>'+fmt(r.ac)+'</strong></td>'+
+    '<td class="num col-n">'+fmt(r.td)+'</td>'+
+    '<td class="num col-n">'+fmt(r.am)+'</td>'+
+    '<td class="num col-n">'+fmt(r.at)+'</td>'+
+    '<td class="sep">'+(r.alq?'$'+r.alq.toLocaleString('es-AR'):'—')+'</td>'+
+    '<td>'+(r.finC||'—')+'</td></tr>'
+  )).join('');
+}
+function render810Cocheras(){
+  let data=[...stores.ec];
+  data.sort((a,b)=>{const s=sortState.ec;const av=gvE(a,s.col),bv=gvE(b,s.col);return typeof av==='number'?(av-bv)*s.dir:String(av).localeCompare(String(bv))*s.dir;});
+  document.getElementById('ec-tot').textContent=data.length;
+  const tb=document.getElementById('ec-tbody');
+  if(!data.length){tb.innerHTML='<tr><td colspan="4" class="no-results">No hay cocheras disponibles.</td></tr>';return;}
+  tb.innerHTML=data.map(r=>(
+    '<tr class="row-disp"><td style="font-weight:600">'+r.un+'</td>'+
+    '<td style="font-weight:600;padding-left:8px">'+r.pr.toLocaleString('es-AR')+'</td>'+
+    '<td class="sep">'+(r.alq?'$'+r.alq.toLocaleString('es-AR'):'—')+'</td>'+
+    '<td>'+(r.finC||'—')+'</td></tr>'
+  )).join('');
+}
+async function load810(){
+  const text=await fetchCSV(URLS.e810);
+  ['ea','ec'].forEach(p=>document.getElementById(p+'-loading').style.display='none');
+  if(!text){['ea','ec'].forEach(p=>document.getElementById(p+'-error').style.display='block');return;}
+  const d=parse810(text);
+  stores.ea=d.a; stores.ec=d.c;
+  const nvOrd=v=>v==='PB'?0:parseInt(v);
+  ddBuildMenu('ea-nv',[...new Set(stores.ea.map(r=>r.nv))].sort((a,b)=>nvOrd(a)-nvOrd(b)),render810Aptos);
+  ddBuildMenu('ea-ti',[...new Set(stores.ea.map(r=>r.ti))].filter(Boolean).sort(),render810Aptos);
+  ddBuildMenu('ea-ub',[...new Set(stores.ea.map(r=>r.ub))].filter(v=>v&&v!=='-').sort(),render810Aptos);
+  document.getElementById('ea-table').style.display='table';
+  document.getElementById('ec-table').style.display='table';
+  render810Aptos(); render810Cocheras();
+  const upd='Última actualización: '+new Date().toLocaleString('es-AR');
+  document.getElementById('ea-upd').textContent=upd;
+  document.getElementById('ec-upd').textContent=upd;
+}
+
 const renders = {
   ta:()=>renderAptos('ta',isV),
   tc:()=>renderCocheras('tc',isVC),
@@ -1103,6 +1270,7 @@ load('hc',parseCocheras,'hc-table','hc-loading','hc-error','hc-upd',false,isVRC,
 load('ga',function(t){return parseAptos(t,4,5,8,9,10,11,12,13,14,['PB','1','2','3','4','5','6','7','8','9','10']);},'ga-table','ga-loading','ga-error','ga-upd',false,isV,renders.ga);
 load('gc',parseCocheras,'gc-table','gc-loading','gc-error','gc-upd',false,isVRC,renders.gc);
 loadOlimpicos();
+load810();
 
 window.addEventListener('DOMContentLoaded', function(){
   var elHub = document.getElementById('cuotas-hub');
