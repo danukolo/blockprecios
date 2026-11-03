@@ -766,8 +766,8 @@ function getEstado(r,vfn,pfx){
   if(pfx==='ta'){
     if(r.un&&TA_VENDIDAS_EXCEPCION.includes(r.un.trim())) return 'vendido';
     if(r.un&&(r.un.startsWith('7')||r.un.startsWith('9'))){
-      // Próx. a la venta SIN precio = vendida; con precio sigue como próxima
-      return r.pr?'proximo':'vendido';
+      // Próx. a la venta SIN precio = vendida; con precio = disponible
+      return r.pr?'disponible':'vendido';
     }
   }
   const tiUp=(r.ti||'').toUpperCase().trim();
@@ -1025,7 +1025,6 @@ function populateFilters(pfx,hasOri){
   const estadoOpts=[
     {val:'disponible',label:'Disponible'},
     {val:'vendido',label:'Vendida'},
-    {val:'proximo',label:'Prox. a la venta'},
     {val:'nodisponible',label:'No disponible'}
   ];
   ddBuildEstado(pfx+'-es',estadoOpts,renders[pfx]);
