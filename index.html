@@ -133,6 +133,7 @@ td.un-col{width:55px;padding-right:4px}
   <div class="proj-tab" onclick="swProj('garden',this)">🏢 Garden</div>
   <div class="proj-tab" onclick="swProj('olimpicos',this)">🏢 Los Olímpicos</div>
   <div class="proj-tab" onclick="swProj('ochodiez',this)">🏢 8/10</div>
+  <div class="proj-tab" onclick="swProj('temporambla',this)">🏢 Tempo Rambla</div>
 </div>
 
 <!-- ===== TRIBECA ===== -->
@@ -656,6 +657,83 @@ td.un-col{width:55px;padding-right:4px}
     <div class="last-update" id="ec-upd"></div>
   </div>
 </div>
+<!-- ===== TEMPO RAMBLA ===== -->
+<div id="proj-temporambla" class="proj-panel">
+  <div class="sub-tabs">
+    <div class="sub-tab active" onclick="swSub('temporambla','aptos',this)">🏠 Apartamentos</div>
+    <div class="sub-tab" onclick="swSub('temporambla','cocheras',this)">🚗 Cocheras</div>
+  </div>
+
+  <!-- tempo rambla aptos -->
+  <div id="temporambla-aptos" class="sub-panel active">
+    <div class="badges-row">
+      <div class="entrega-badge">🏗️ <span>Entrega</span> Entregado</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Disponibles</div><div class="stat-value" id="xa-tot" style="color:#1a6a40">—</div></div>
+    </div>
+    <div class="controls-wrap">
+      <div class="controls-title">Filtros</div>
+      <div class="controls">
+        <div class="dd-wrap" id="ddw-xa-nv"><div class="dd-btn" onclick="ddToggle('xa-nv')">Piso <span class="dd-count" id="ddc-xa-nv"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-xa-nv"></div></div>
+        <div class="dd-wrap" id="ddw-xa-ti"><div class="dd-btn" onclick="ddToggle('xa-ti')">Tipo <span class="dd-count" id="ddc-xa-ti"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-xa-ti"></div></div>
+        <div class="dd-wrap" id="ddw-xa-ub"><div class="dd-btn" onclick="ddToggle('xa-ub')">Ubicación <span class="dd-count" id="ddc-xa-ub"></span><span class="dd-arrow">▾</span></div><div class="dd-menu" id="ddm-xa-ub"></div></div>
+        <button class="reset" onclick="resetXA()"><i class="ti ti-x" aria-hidden="true"></i> Limpiar</button>
+      </div>
+    </div>
+    <div class="docs-row">
+      <a class="doc-btn" href="https://drive.google.com/file/d/1-6P406d0n5qxb8_qP2s63eB2HOu11nKy/view?usp=drive_link" target="_blank"><i class="ti ti-file-description" aria-hidden="true"></i> Planos</a>
+      <a class="doc-btn" href="https://drive.google.com/file/d/1f0aCI77j0YXSYXkugiSWtBvJn1nun5Zm/view?usp=drive_link" target="_blank"><i class="ti ti-book" aria-hidden="true"></i> Brochure</a>
+      <a class="doc-btn" href="https://drive.google.com/file/d/1UU0PKiuWGmW7JHhk305vq6DTLNtyrBbe/view?usp=drive_link" target="_blank"><i class="ti ti-file-description" aria-hidden="true"></i> Memoria descriptiva</a>
+      <a class="doc-btn" href="https://maps.app.goo.gl/sYyaPLkJGMSRXdkS8" target="_blank">📍 Mapa</a>
+    </div>
+    <div class="table-wrap">
+      <div class="loading" id="xa-loading">Cargando datos...</div>
+      <div class="error-msg" id="xa-error">No se pudieron cargar los datos.</div>
+      <table id="xa-table" style="display:none">
+        <thead><tr>
+          <th onclick="srtX('xa','un')" id="xah-un" style="width:55px">Unidad </th>
+          <th onclick="srtX('xa','pr')" id="xah-pr" class="num" style="width:100px">Precio (USD) </th>
+          <th onclick="srtX('xa','ti')" id="xah-ti" style="width:70px">Tipo </th>
+          <th onclick="srtX('xa','ub')" id="xah-ub">Ubicación </th>
+          <th onclick="srtX('xa','ai')" id="xah-ai" class="num sep col-n">A. interna </th>
+          <th onclick="srtX('xa','bt')" id="xah-bt" class="num col-n">Balcón </th>
+          <th onclick="srtX('xa','td')" id="xah-td" class="num col-n">Terraza </th>
+          <th onclick="srtX('xa','am')" id="xah-am" class="num col-n">Amenities </th>
+          <th onclick="srtX('xa','at')" id="xah-at" class="num col-n">Total m² </th>
+          <th class="sep" style="width:100px">Alquiler (UYU)</th>
+          <th style="width:100px">Fin contrato</th>
+        </tr></thead>
+        <tbody id="xa-tbody"></tbody>
+        <tfoot id="xa-tfoot"></tfoot>
+      </table>
+    </div>
+    <div class="last-update" id="xa-upd"></div>
+  </div>
+
+  <!-- tempo rambla cocheras -->
+  <div id="temporambla-cocheras" class="sub-panel">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Disponibles</div><div class="stat-value" id="xc-tot" style="color:#1a6a40">—</div></div>
+    </div>
+    <div class="table-wrap">
+      <div class="loading" id="xc-loading">Cargando datos...</div>
+      <div class="error-msg" id="xc-error">No se pudieron cargar los datos.</div>
+      <table id="xc-table" class="coch-table" style="display:none">
+        <thead><tr>
+          <th onclick="srtX('xc','un')" id="xch-un" style="width:65px">Cochera </th>
+          <th onclick="srtX('xc','ti')" id="xch-ti" style="width:110px">Nivel </th>
+          <th onclick="srtX('xc','pr')" id="xch-pr" style="width:100px;padding-left:8px">Precio (USD) </th>
+          <th class="sep" style="width:90px">Alquiler</th>
+          <th style="width:100px">Fin contrato</th>
+        </tr></thead>
+        <tbody id="xc-tbody"></tbody>
+        <tfoot id="xc-tfoot"></tfoot>
+      </table>
+    </div>
+    <div class="last-update" id="xc-upd"></div>
+  </div>
+</div>
 </div><!-- end .page -->
 
 <script>
@@ -670,12 +748,13 @@ const URLS = {
   tc: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQndKxWDSZBKejNvvXl0DkU00XtmdyVZCSNBCvN5j35yPk0MsUXU_O670_Tw6inkn-WuIfxgL6YJLxj/pub?gid=2129038907&single=true&output=csv',
   ra: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPE8NLul0j85QhnOUzH2cTZBfqg3Uv2uMu_r9hJhDJ-YnIxeJqxBXquZ0ncaJmzMO3M6r1eMR8fCE1/pub?gid=1067607880&single=true&output=csv',
   rc: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPE8NLul0j85QhnOUzH2cTZBfqg3Uv2uMu_r9hJhDJ-YnIxeJqxBXquZ0ncaJmzMO3M6r1eMR8fCE1/pub?gid=1964954728&single=true&output=csv',
-  e810: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcdW4TibZp97W4_U2o-C_ObKH_0TinWlT-LD52AFr-_E-z5HD6gdgtz3zHnv7Lw8A09q6ha0Bjidid/pub?gid=0&single=true&output=csv'
+  e810: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQcdW4TibZp97W4_U2o-C_ObKH_0TinWlT-LD52AFr-_E-z5HD6gdgtz3zHnv7Lw8A09q6ha0Bjidid/pub?gid=0&single=true&output=csv',
+  temporambla: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTuDQtHVHtb7FgZBya2UEnx79KJ0pWqYarFIx-BffASjgGLOhXitjB9h5ejNR-HkxS-WTsjaWoISdfd/pub?gid=0&single=true&output=csv'
 };
 const PROXY = 'https://corsproxy.io/?';
 
-const stores = {ta:[],tc:[],ra:[],rc:[],ha:[],hc:[],ga:[],gc:[],oa:[],oc:[],ea:[],ec:[]};
-const sortState = {ta:{col:'un',dir:1},tc:{col:'un',dir:1},ra:{col:'un',dir:1},rc:{col:'un',dir:1},ha:{col:'un',dir:1},hc:{col:'un',dir:1},ga:{col:'un',dir:1},gc:{col:'un',dir:1},oa:{col:'un',dir:1},oc:{col:'un',dir:1},ea:{col:'un',dir:1},ec:{col:'un',dir:1}};
+const stores = {ta:[],tc:[],ra:[],rc:[],ha:[],hc:[],ga:[],gc:[],oa:[],oc:[],ea:[],ec:[],xa:[],xc:[]};
+const sortState = {ta:{col:'un',dir:1},tc:{col:'un',dir:1},ra:{col:'un',dir:1},rc:{col:'un',dir:1},ha:{col:'un',dir:1},hc:{col:'un',dir:1},ga:{col:'un',dir:1},gc:{col:'un',dir:1},oa:{col:'un',dir:1},oc:{col:'un',dir:1},ea:{col:'un',dir:1},ec:{col:'un',dir:1},xa:{col:'un',dir:1},xc:{col:'un',dir:1}};
 
 // ---- NAV ----
 // ---- CUOTAS ----
@@ -1220,6 +1299,99 @@ async function load810(){
   document.getElementById('ec-upd').textContent=upd;
 }
 
+// ---- TEMPO RAMBLA (entregado; una sola hoja con local + aptos + cocheras) ----
+// Columnas: 0 UNIDAD,1 TIPO,2 UBICACIÓN,3 PRECIO,4 AI,5 BALCÓN,6 TERRAZA,7 AMENITIES,8 TOTAL,9 ALQUILER,10 FIN CONTRATO
+// Cocheras: TIPO = SUBSUELO / PLANTA BAJA (los números se repiten entre niveles)
+function parseTR(text){
+  let rows=text.trim().split('\n').slice(1).map(l=>parseFields(l.trim()))
+    .filter(c=>(c[0]||'').trim()!=='').map(c=>({
+      un:(c[0]||'').trim(), ti:(c[1]||'').trim(), ub:(c[2]||'').trim(), pr:parseNum(c[3]),
+      ai:parseNum(c[4]), bt:parseNum(c[5]), td:parseNum(c[6]), am:parseNum(c[7]),
+      at:parseNum(c[8]), alq:parseNum(c[9]), finC:(c[10]||'').trim()
+    })).filter(r=>r.pr!==null&&r.pr>0);
+  const isG=r=>/subsuelo|planta baja|garage|cochera/i.test(r.ti);
+  rows.forEach(r=>{
+    if(isG(r)) return;
+    if(/local/i.test(r.un)){ r.ti=r.ti||'LOCAL'; r.nv='PB'; return; }
+    const d=r.un.replace(/\D/g,''); r.nv=d.length>2?String(parseInt(d.slice(0,-2))):'PB';
+  });
+  return {a:rows.filter(r=>!isG(r)), c:rows.filter(isG)};
+}
+function gvX(r,col){
+  if(col==='un')return /local/i.test(r.un)?0:(parseInt(r.un)||0);
+  if(['ti','ub'].includes(col))return r[col]||'';
+  return r[col]||0;
+}
+function srtX(pfx,col){
+  const s=sortState[pfx];
+  if(s.col===col)s.dir*=-1;else{s.col=col;s.dir=1;}
+  const h=pfx==='xa'?'xah':'xch';
+  document.querySelectorAll('[id^="'+h+'-"]').forEach(t=>t.classList.remove('active'));
+  const el=document.getElementById(h+'-'+col);if(el)el.classList.add('active');
+  if(pfx==='xa')renderTRAptos();else renderTRCocheras();
+}
+function resetXA(){ddClear('xa');renderTRAptos();}
+function renderTRAptos(){
+  const nv=ddGetSel('xa-nv'),ti=ddGetSel('xa-ti'),ub=ddGetSel('xa-ub');
+  let data=[...stores.xa];
+  data.sort((a,b)=>{const s=sortState.xa;const av=gvX(a,s.col),bv=gvX(b,s.col);return typeof av==='number'?(av-bv)*s.dir:String(av).localeCompare(String(bv))*s.dir;});
+  if(nv.length) data=data.filter(r=>nv.includes(r.nv));
+  if(ti.length) data=data.filter(r=>ti.includes(r.ti));
+  if(ub.length) data=data.filter(r=>ub.includes(r.ub));
+  document.getElementById('xa-tot').textContent=data.length;
+  const tb=document.getElementById('xa-tbody');
+  if(!data.length){tb.innerHTML='<tr><td colspan="11" class="no-results">No hay unidades disponibles con esos filtros.</td></tr>';return;}
+  tb.innerHTML=data.map(r=>(
+    '<tr class="row-disp">'+
+    '<td class="un-col" style="font-weight:600">'+r.un+'</td>'+
+    '<td class="num price">'+r.pr.toLocaleString('es-AR')+'</td>'+
+    '<td><span class="tb">'+r.ti+'</span></td>'+
+    '<td>'+(r.ub||'—')+'</td>'+
+    '<td class="num sep col-n">'+fmt(r.ai)+'</td>'+
+    '<td class="num col-n">'+fmt(r.bt)+'</td>'+
+    '<td class="num col-n">'+fmt(r.td)+'</td>'+
+    '<td class="num col-n">'+fmt(r.am)+'</td>'+
+    '<td class="num col-n">'+fmt(r.at)+'</td>'+
+    '<td class="sep">'+(r.alq?'$'+r.alq.toLocaleString('es-AR'):'—')+'</td>'+
+    '<td>'+(r.finC||'—')+'</td></tr>'
+  )).join('');
+}
+function renderTRCocheras(){
+  let data=[...stores.xc];
+  const nvO=t=>/subsuelo/i.test(t)?0:1;
+  data.sort((a,b)=>{const s=sortState.xc;
+    if(s.col==='un'){const d=nvO(a.ti)-nvO(b.ti);return (d||((parseInt(a.un)||0)-(parseInt(b.un)||0)))*s.dir;}
+    const av=gvX(a,s.col),bv=gvX(b,s.col);return typeof av==='number'?(av-bv)*s.dir:String(av).localeCompare(String(bv))*s.dir;});
+  document.getElementById('xc-tot').textContent=data.length;
+  const tb=document.getElementById('xc-tbody');
+  if(!data.length){tb.innerHTML='<tr><td colspan="5" class="no-results">No hay cocheras disponibles.</td></tr>';return;}
+  const nvL=t=>/subsuelo/i.test(t)?'Subsuelo':'Planta baja';
+  tb.innerHTML=data.map(r=>(
+    '<tr class="row-disp"><td style="font-weight:600">'+r.un+'</td>'+
+    '<td>'+nvL(r.ti)+'</td>'+
+    '<td style="font-weight:600;padding-left:8px">'+r.pr.toLocaleString('es-AR')+'</td>'+
+    '<td class="sep">'+(r.alq?'$'+r.alq.toLocaleString('es-AR'):'—')+'</td>'+
+    '<td>'+(r.finC||'—')+'</td></tr>'
+  )).join('');
+}
+async function loadTR(){
+  const text=await fetchCSV(URLS.temporambla);
+  ['xa','xc'].forEach(p=>document.getElementById(p+'-loading').style.display='none');
+  if(!text){['xa','xc'].forEach(p=>document.getElementById(p+'-error').style.display='block');return;}
+  const d=parseTR(text);
+  stores.xa=d.a; stores.xc=d.c;
+  const nvOrd=v=>v==='PB'?0:parseInt(v);
+  ddBuildMenu('xa-nv',[...new Set(stores.xa.map(r=>r.nv))].sort((a,b)=>nvOrd(a)-nvOrd(b)),renderTRAptos);
+  ddBuildMenu('xa-ti',[...new Set(stores.xa.map(r=>r.ti))].filter(Boolean).sort(),renderTRAptos);
+  ddBuildMenu('xa-ub',[...new Set(stores.xa.map(r=>r.ub))].filter(v=>v&&v!=='-').sort(),renderTRAptos);
+  document.getElementById('xa-table').style.display='table';
+  document.getElementById('xc-table').style.display='table';
+  renderTRAptos(); renderTRCocheras();
+  const upd='Última actualización: '+new Date().toLocaleString('es-AR');
+  document.getElementById('xa-upd').textContent=upd;
+  document.getElementById('xc-upd').textContent=upd;
+}
+
 const renders = {
   ta:()=>renderAptos('ta',isV),
   tc:()=>renderCocheras('tc',isVC),
@@ -1270,6 +1442,7 @@ load('ga',function(t){return parseAptos(t,4,5,8,9,10,11,12,13,14,['PB','1','2','
 load('gc',parseCocheras,'gc-table','gc-loading','gc-error','gc-upd',false,isVRC,renders.gc);
 loadOlimpicos();
 load810();
+loadTR();
 
 window.addEventListener('DOMContentLoaded', function(){
   var elHub = document.getElementById('cuotas-hub');
